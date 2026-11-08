@@ -1,94 +1,82 @@
-/* ================================
-   MOBILE MENU
-================================ */
-
 const navMenu = document.getElementById("nav-menu");
 const navToggle = document.getElementById("nav-toggle");
 const navClose = document.getElementById("nav-close");
-
-/* Open menu */
-
-if (navToggle) {
-  navToggle.addEventListener("click", () => {
-    navMenu.classList.add("show-menu");
-  });
-}
-
-/* Close menu */
-
-if (navClose) {
-  navClose.addEventListener("click", () => {
-    navMenu.classList.remove("show-menu");
-  });
-}
-
-/* Close menu when clicking navigation */
-
 const navLinks = document.querySelectorAll(".nav__link");
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    navMenu.classList.remove("show-menu");
-  });
+function setMenuOpen(isOpen) {
+  if (!navMenu || !navToggle) return;
+
+  navMenu.classList.toggle("show-menu", isOpen);
+  navToggle.setAttribute("aria-expanded", String(isOpen));
+  navToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+}
+
+navToggle?.addEventListener("click", () => {
+  setMenuOpen(navToggle.getAttribute("aria-expanded") !== "true");
 });
 
-/* ================================
-   DARK / LIGHT MODE
-================================ */
+navClose?.addEventListener("click", () => setMenuOpen(false));
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", () => setMenuOpen(false));
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && navMenu?.classList.contains("show-menu")) {
+    setMenuOpen(false);
+    navToggle?.focus();
+  }
+});
 
 const themeButton = document.getElementById("theme-button");
-const themeIcon = themeButton.querySelector("i");
+const themeIcon = themeButton?.querySelector("i");
 
-/* Check saved theme */
+function applyTheme(isDark) {
+  document.body.classList.toggle("dark-theme", isDark);
 
-const savedTheme = localStorage.getItem("theme");
+  if (themeIcon) {
+    themeIcon.classList.toggle("ri-moon-line", !isDark);
+    themeIcon.classList.toggle("ri-sun-line", isDark);
+  }
 
-if (savedTheme === "dark") {
-  document.body.classList.add("dark-theme");
-
-  themeIcon.classList.remove("ri-moon-line");
-  themeIcon.classList.add("ri-sun-line");
+  if (themeButton) {
+    themeButton.setAttribute("aria-pressed", String(isDark));
+    themeButton.setAttribute(
+      "aria-label",
+      isDark ? "Switch to light theme" : "Switch to dark theme",
+    );
+  }
 }
 
-/* Toggle theme */
+try {
+  applyTheme(localStorage.getItem("theme") === "dark");
+} catch (error) {
+  console.error("Could not read the saved theme preference.", error);
+  applyTheme(false);
+}
 
-themeButton.addEventListener("click", () => {
-  document.body.classList.toggle("dark-theme");
+themeButton?.addEventListener("click", () => {
+  const isDark = !document.body.classList.contains("dark-theme");
+  applyTheme(isDark);
 
-  const isDark = document.body.classList.contains("dark-theme");
-
-  if (isDark) {
-    themeIcon.classList.remove("ri-moon-line");
-    themeIcon.classList.add("ri-sun-line");
-
-    localStorage.setItem("theme", "dark");
-  } else {
-    themeIcon.classList.remove("ri-sun-line");
-    themeIcon.classList.add("ri-moon-line");
-
-    localStorage.setItem("theme", "light");
+  try {
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  } catch (error) {
+    console.error("Could not save the theme preference.", error);
   }
 });
 
-/* ================================
-   SHOW SCROLL UP
-================================ */
-
 const scrollUp = document.getElementById("scroll-up");
+const header = document.getElementById("header");
 
-function scrollUpButton() {
-  if (window.scrollY >= 500) {
-    scrollUp.classList.add("show-scroll");
-  } else {
-    scrollUp.classList.remove("show-scroll");
-  }
+function updateScrollUI() {
+  const isScrolled = window.scrollY >= 50;
+  header?.classList.toggle("scroll-header", isScrolled);
+  scrollUp?.classList.toggle("show-scroll", window.scrollY >= 500);
 }
 
-window.addEventListener("scroll", scrollUpButton);
-
-/* ================================
-   CURRENT YEAR
-================================ */
+window.addEventListener("scroll", updateScrollUI, { passive: true });
+updateScrollUI();
 
 const currentYear = document.getElementById("current-year");
 
@@ -96,130 +84,93 @@ if (currentYear) {
   currentYear.textContent = new Date().getFullYear();
 }
 
-/* ================================
-   CONTACT FORM
-================================ */
-
 const contactForm = document.getElementById("contact-form");
 const contactMessage = document.getElementById("contact-message");
 
-if (contactForm) {
-  contactForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+contactForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-    const submitButton = contactForm.querySelector('button[type="submit"]');
+  const submitButton = contactForm.querySelector('button[type="submit"]');
 
+  if (submitButton) {
     submitButton.disabled = true;
-    submitButton.innerHTML = `
-            Sending...
-            <i class="ri-loader-4-line"></i>
-        `;
+    submitButton.innerHTML =
+      'Sending... <i class="ri-loader-4-line" aria-hidden="true"></i>';
+  }
 
-    const formData = new FormData(contactForm);
+  if (contactMessage) {
+    contactMessage.textContent = "";
+    contactMessage.classList.remove("success-message", "error-message");
+  }
 
-    try {
-      const response = await fetch(contactForm.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
-      });
+  try {
+    const response = await fetch(contactForm.action, {
+      method: "POST",
+      body: new FormData(contactForm),
+      headers: { Accept: "application/json" },
+    });
 
-      if (response.ok) {
-        contactMessage.textContent = "Message sent successfully. Thank you!";
-
-        contactMessage.classList.add("success-message");
-
-        contactForm.reset();
-      } else {
-        contactMessage.textContent =
-          "Failed to send message. Please try again.";
-
-        contactMessage.classList.add("error-message");
-      }
-    } catch (error) {
-      contactMessage.textContent = "Something went wrong. Please try again.";
-
-      contactMessage.classList.add("error-message");
+    if (!response.ok) {
+      throw new Error(`Contact form request failed with status ${response.status}.`);
     }
 
-    submitButton.disabled = false;
+    if (contactMessage) {
+      contactMessage.textContent = "Message sent successfully. Thank you!";
+      contactMessage.classList.add("success-message");
+    }
 
-    submitButton.innerHTML = `
-            Send Message
-            <i class="ri-send-plane-line"></i>
-        `;
-  });
-}
+    contactForm.reset();
+  } catch (error) {
+    console.error("Could not submit the contact form.", error);
 
-/* ================================
-   HEADER SCROLL
-================================ */
-
-const header = document.getElementById("header");
-
-function scrollHeader() {
-  if (window.scrollY >= 50) {
-    header.classList.add("scroll-header");
-  } else {
-    header.classList.remove("scroll-header");
+    if (contactMessage) {
+      contactMessage.textContent =
+        "Something went wrong. Please try again or contact me through GitHub.";
+      contactMessage.classList.add("error-message");
+    }
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.innerHTML =
+        'Send Message <i class="ri-send-plane-line" aria-hidden="true"></i>';
+    }
   }
-}
-
-window.addEventListener("scroll", scrollHeader);
-
-/* ================================
-   SCROLL REVEAL
-================================ */
+});
 
 const revealElements = document.querySelectorAll(".reveal");
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show-reveal");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  {
-    threshold: 0.15,
-  },
-);
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show-reveal");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 },
+  );
 
-revealElements.forEach((element) => {
-  revealObserver.observe(element);
-});
+  revealElements.forEach((element) => revealObserver.observe(element));
 
-/* ================================
-   ACTIVE NAVIGATION
-================================ */
+  const sections = document.querySelectorAll("main section[id]");
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
 
-const sections = document.querySelectorAll("main section[id]");
-
-const sectionObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
         const currentId = entry.target.getAttribute("id");
-
         navLinks.forEach((link) => {
-          link.classList.remove("active-link");
-
-          if (link.getAttribute("href") === `#${currentId}`) {
-            link.classList.add("active-link");
-          }
+          const isActive = link.getAttribute("href") === `#${currentId}`;
+          link.classList.toggle("active-link", isActive);
         });
-      }
-    });
-  },
-  {
-    rootMargin: "-35% 0px -55% 0px",
-  },
-);
+      });
+    },
+    { rootMargin: "-35% 0px -55% 0px" },
+  );
 
-sections.forEach((section) => {
-  sectionObserver.observe(section);
-});
+  sections.forEach((section) => sectionObserver.observe(section));
+} else {
+  revealElements.forEach((element) => element.classList.add("show-reveal"));
+}

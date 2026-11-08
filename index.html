@@ -7,43 +7,41 @@
 
     <meta
       name="description"
-      content="Portfolio Enal, Information Technology graduate and Fullstack Developer specializing in web and mobile application development." />
+      content="Portfolio of Zainal, an Information Technology graduate and Fullstack Developer specializing in web and mobile application development." />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
 
-    <meta property="og:title" content="Enal | Fullstack Developer" />
+    <meta property="og:title" content="Zainal | Fullstack Developer" />
 
     <meta
       property="og:description"
-      content="Portfolio Enal — Information Technology graduate and Fullstack Developer." />
+      content="Portfolio of Zainal — Information Technology graduate and Fullstack Developer." />
 
-    <meta property="og:image" content="assets/img/profile.png" />
+    <meta property="og:image" content="assets/img/image%20(4).jpg" />
 
-    <meta property="og:url" content="https://yourdomain.com" />
-
-    <meta property="og:site_name" content="Enal Portfolio" />
+    <meta property="og:site_name" content="Zainal Portfolio" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
 
-    <meta name="twitter:title" content="Enal | Fullstack Developer" />
+    <meta name="twitter:title" content="Zainal | Fullstack Developer" />
 
     <meta
       name="twitter:description"
-      content="Portfolio Enal — Information Technology graduate and Fullstack Developer." />
+      content="Portfolio of Zainal — Information Technology graduate and Fullstack Developer." />
 
-    <meta name="twitter:image" content="assets/img/profile.png" />
+    <meta name="twitter:image" content="assets/img/image%20(4).jpg" />
 
     <meta
       name="keywords"
-      content="Enal, Fullstack Developer, Web Developer, Laravel, React, Flutter, JavaScript, PHP, MySQL" />
+      content="Zainal, Fullstack Developer, Web Developer, Laravel, React, Flutter, JavaScript, PHP, MySQL" />
 
-    <meta name="author" content="Enal" />
+    <meta name="author" content="Zainal" />
 
     <meta name="robots" content="index, follow" />
 
-    <title>Portfolio</title>
+    <title>Zainal | Fullstack Developer</title>
 
     <link
       rel="stylesheet"
@@ -60,7 +58,7 @@
     <header class="header" id="header">
       <nav class="nav container">
         <!-- Logo -->
-        <a href="#" class="nav__logo"> Portfolio<span>.</span> </a>
+        <a href="#home" class="nav__logo"> Zainal<span>.</span> </a>
 
         <!-- Navigation -->
         <div class="nav__menu" id="nav-menu">
@@ -87,9 +85,13 @@
           </ul>
 
           <!-- Close button -->
-          <div class="nav__close" id="nav-close">
+          <button
+            class="nav__close"
+            id="nav-close"
+            type="button"
+            aria-label="Close menu">
             <i class="ri-close-line"></i>
-          </div>
+          </button>
         </div>
 
         <!-- Actions -->
@@ -98,12 +100,20 @@
           <button
             class="theme__button"
             id="theme-button"
-            aria-label="Toggle theme">
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false">
             <i class="ri-moon-line"></i>
           </button>
 
           <!-- Menu button -->
-          <button class="nav__toggle" id="nav-toggle" aria-label="Open menu">
+          <button
+            class="nav__toggle"
+            id="nav-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="nav-menu">
             <i class="ri-menu-line"></i>
           </button>
         </div>
@@ -132,16 +142,13 @@
 
             <div class="home__buttons">
               <a href="#contact" class="button">
-                Contact Me
+                Let's Connect
                 <i class="ri-arrow-right-line"></i>
               </a>
 
-              <a
-                href="assets/cv/CV.pdf"
-                class="button button--outline"
-                download>
-                Download CV
-                <i class="ri-download-line"></i>
+              <a href="#projects" class="button button--outline">
+                View Projects
+                <i class="ri-arrow-down-line"></i>
               </a>
             </div>
 
@@ -149,28 +156,14 @@
 
             <div class="home__social">
               <a
-                href="https://github.com/"
+                href="https://github.com/mor3tz"
                 target="_blank"
+                rel="noopener noreferrer"
                 class="home__social-link"
                 aria-label="GitHub">
                 <i class="ri-github-fill"></i>
               </a>
 
-              <a
-                href="https://www.linkedin.com/"
-                target="_blank"
-                class="home__social-link"
-                aria-label="LinkedIn">
-                <i class="ri-linkedin-box-fill"></i>
-              </a>
-
-              <a
-                href="https://instagram.com/"
-                target="_blank"
-                class="home__social-link"
-                aria-label="Instagram">
-                <i class="ri-instagram-line"></i>
-              </a>
             </div>
           </div>
 
@@ -180,9 +173,17 @@
             <div class="home__image-wrapper">
               <img
                 src="assets/img/image (4).jpg"
-                alt="Enal - Fullstack Developer"
-                class="home__profile" />
+                alt="Portrait of Zainal"
+                class="home__profile"
+                width="640"
+                height="640"
+                fetchpriority="high"
+                decoding="async" />
             </div>
+            <p class="home__image-badge">
+              <span aria-hidden="true"></span>
+              Open to opportunities
+            </p>
           </div>
         </div>
       </section>
@@ -272,7 +273,7 @@
             <div class="about__stat">
               <i class="ri-code-s-slash-line"></i>
 
-              <h3>3+</h3>
+              <h3>3</h3>
 
               <p>Projects</p>
             </div>
@@ -328,7 +329,7 @@
                 <i class="ri-layout-4-line"></i>
 
                 <div>
-                  <h3>Frontend</h3>
+                  <h3>Frontend Frameworks</h3>
 
                   <p>Building responsive user interfaces</p>
                 </div>
@@ -336,13 +337,13 @@
 
               <div class="skills__list">
                 <div class="skill__item">
-                  <i class="ri-html5-fill"></i>
-                  <span>HTML</span>
+                  <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+                  <span>Next.js</span>
                 </div>
 
                 <div class="skill__item">
-                  <i class="ri-css3-fill"></i>
-                  <span>CSS</span>
+                  <i class="ri-css3-line" aria-hidden="true"></i>
+                  <span>Tailwind</span>
                 </div>
 
                 <div class="skill__item">
@@ -353,6 +354,16 @@
                 <div class="skill__item">
                   <i class="ri-reactjs-line"></i>
                   <span>React</span>
+                </div>
+
+                <div class="skill__item">
+                  <i class="ri-html5-line" aria-hidden="true"></i>
+                  <span>HTML</span>
+                </div>
+
+                <div class="skill__item">
+                  <i class="ri-css3-line" aria-hidden="true"></i>
+                  <span>CSS</span>
                 </div>
               </div>
             </div>
@@ -494,10 +505,12 @@
             <!-- Project 1 -->
 
             <article class="project__card reveal">
-              <div class="project__image">
-                <img
-                  src="assets/img/project-inventory.png"
-                  alt="Inventory Management System" />
+              <div
+                class="project__image project__image--inventory"
+                role="img"
+                aria-label="Illustration of an inventory management dashboard">
+                <i class="ri-stack-line" aria-hidden="true"></i>
+                <span class="project__image-label">Inventory Management</span>
 
                 <div class="project__overlay">
                   <span> Web Application </span>
@@ -522,18 +535,9 @@
                 </div>
 
                 <div class="project__links">
-                  <a href="#" class="project__link" target="_blank">
-                    <i class="ri-github-fill"></i>
-                    GitHub
-                  </a>
-
-                  <a
-                    href="#"
-                    class="project__link project__link--primary"
-                    target="_blank">
-                    Live Demo
-                    <i class="ri-arrow-right-up-line"></i>
-                  </a>
+                  <span class="project__availability">
+                    Source code and demo links have not been added yet.
+                  </span>
                 </div>
               </div>
             </article>
@@ -541,10 +545,12 @@
             <!-- Project 2 -->
 
             <article class="project__card reveal">
-              <div class="project__image">
-                <img
-                  src="assets/img/project-kanban.png"
-                  alt="Project Management Kanban" />
+              <div
+                class="project__image project__image--kanban"
+                role="img"
+                aria-label="Illustration of a project management board">
+                <i class="ri-layout-masonry-line" aria-hidden="true"></i>
+                <span class="project__image-label">Project Management</span>
 
                 <div class="project__overlay">
                   <span> Web Application </span>
@@ -569,18 +575,9 @@
                 </div>
 
                 <div class="project__links">
-                  <a href="#" class="project__link" target="_blank">
-                    <i class="ri-github-fill"></i>
-                    GitHub
-                  </a>
-
-                  <a
-                    href="#"
-                    class="project__link project__link--primary"
-                    target="_blank">
-                    Live Demo
-                    <i class="ri-arrow-right-up-line"></i>
-                  </a>
+                  <span class="project__availability">
+                    Source code and demo links have not been added yet.
+                  </span>
                 </div>
               </div>
             </article>
@@ -588,10 +585,12 @@
             <!-- Project 3 -->
 
             <article class="project__card reveal">
-              <div class="project__image">
-                <img
-                  src="assets/img/project-rt.png"
-                  alt="Aplikasi Keamanan RT" />
+              <div
+                class="project__image project__image--security"
+                role="img"
+                aria-label="Illustration of a neighborhood security app">
+                <i class="ri-shield-check-line" aria-hidden="true"></i>
+                <span class="project__image-label">Neighborhood Security</span>
 
                 <div class="project__overlay">
                   <span> Mobile Application </span>
@@ -616,18 +615,9 @@
                 </div>
 
                 <div class="project__links">
-                  <a href="#" class="project__link" target="_blank">
-                    <i class="ri-github-fill"></i>
-                    GitHub
-                  </a>
-
-                  <a
-                    href="#"
-                    class="project__link project__link--primary"
-                    target="_blank">
-                    Details
-                    <i class="ri-arrow-right-up-line"></i>
-                  </a>
+                  <span class="project__availability">
+                    Source code and demo links have not been added yet.
+                  </span>
                 </div>
               </div>
             </article>
@@ -662,42 +652,12 @@
                 free to reach out through any of the channels below.
               </p>
 
-              <!-- Email -->
-
-              <a href="mailto:your.email@gmail.com" class="contact__item">
-                <div class="contact__icon">
-                  <i class="ri-mail-line"></i>
-                </div>
-
-                <div>
-                  <span>Email</span>
-
-                  <p>your.email@gmail.com</p>
-                </div>
-              </a>
-
-              <!-- WhatsApp -->
-
-              <a
-                href="https://wa.me/628xxxxxxxxxx"
-                target="_blank"
-                class="contact__item">
-                <div class="contact__icon">
-                  <i class="ri-whatsapp-line"></i>
-                </div>
-
-                <div>
-                  <span>WhatsApp</span>
-
-                  <p>Let's chat</p>
-                </div>
-              </a>
-
               <!-- GitHub -->
 
               <a
-                href="https://github.com/"
+                href="https://github.com/mor3tz"
                 target="_blank"
+                rel="noopener noreferrer"
                 class="contact__item">
                 <div class="contact__icon">
                   <i class="ri-github-line"></i>
@@ -710,22 +670,6 @@
                 </div>
               </a>
 
-              <!-- LinkedIn -->
-
-              <a
-                href="https://www.linkedin.com/"
-                target="_blank"
-                class="contact__item">
-                <div class="contact__icon">
-                  <i class="ri-linkedin-line"></i>
-                </div>
-
-                <div>
-                  <span>LinkedIn</span>
-
-                  <p>Connect with me</p>
-                </div>
-              </a>
             </div>
 
             <!-- Contact Form -->
@@ -741,7 +685,7 @@
                 <input
                   type="hidden"
                   name="_subject"
-                  value="New Message from Enal Portfolio" />
+                  value="New Message from Zainal Portfolio" />
 
                 <input
                   type="text"
@@ -773,12 +717,16 @@
                   required></textarea>
               </div>
 
-              <button type="submit" class="button">
+              <button type="submit" class="button contact__button">
                 Send Message
                 <i class="ri-send-plane-line"></i>
               </button>
 
-              <p class="contact__message" id="contact-message"></p>
+              <p
+                class="contact__message"
+                id="contact-message"
+                role="status"
+                aria-live="polite"></p>
             </form>
           </div>
         </div>
@@ -792,7 +740,7 @@
     <footer class="footer">
       <div class="footer__container container">
         <div class="footer__top">
-          <a href="#home" class="footer__logo"> Moretz<span>.</span> </a>
+          <a href="#home" class="footer__logo"> Zainal<span>.</span> </a>
 
           <p>
             Fullstack Developer building modern and useful digital solutions.
@@ -801,26 +749,16 @@
 
         <div class="footer__bottom">
           <p>
-            © <span id="current-year"></span> -CheatCodes. All rights reserved.
+            © <span id="current-year"></span> Zainal. All rights reserved.
           </p>
 
           <div class="footer__social">
-            <a href="https://github.com/" target="_blank" aria-label="GitHub">
+            <a
+              href="https://github.com/mor3tz"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub">
               <i class="ri-github-fill"></i>
-            </a>
-
-            <a
-              href="https://www.linkedin.com/"
-              target="_blank"
-              aria-label="LinkedIn">
-              <i class="ri-linkedin-box-fill"></i>
-            </a>
-
-            <a
-              href="https://instagram.com/"
-              target="_blank"
-              aria-label="Instagram">
-              <i class="ri-instagram-line"></i>
             </a>
           </div>
         </div>
